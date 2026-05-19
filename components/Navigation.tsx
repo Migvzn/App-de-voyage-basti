@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Compass, MessageSquare, LayoutDashboard, LogIn, Menu, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "/explore", label: "Explore", icon: Compass },
+  { href: "/explore", label: "Explorer", icon: Compass },
   { href: "/chat", label: "Chat", icon: MessageSquare },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
 ];
 
 export default function Navigation() {
@@ -28,23 +29,13 @@ export default function Navigation() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#222222]"
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm"
           : "bg-transparent"
       )}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-            <span className="text-white font-bold text-sm">IL</span>
-          </div>
-          <span className="font-bold text-lg tracking-tight">
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              ILUR
-            </span>
-            <span className="text-[#f5f5f5] ml-1 font-light text-sm hidden sm:inline">AI TRAVEL OS</span>
-          </span>
-        </Link>
+        <Logo size="md" />
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
@@ -55,8 +46,8 @@ export default function Navigation() {
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                 pathname === href
-                  ? "bg-[#1a1a1a] text-[#f5f5f5]"
-                  : "text-[#888888] hover:text-[#f5f5f5] hover:bg-[#111111]"
+                  ? "bg-sky-50 text-sky-600"
+                  : "text-slate-700 hover:text-sky-500 hover:bg-sky-50"
               )}
             >
               <Icon className="w-4 h-4" />
@@ -67,21 +58,21 @@ export default function Navigation() {
 
         {/* Right side */}
         <div className="hidden md:flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#888888] hover:text-[#f5f5f5] transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-500 transition-colors">
             <LogIn className="w-4 h-4" />
-            Sign In
+            Connexion
           </button>
           <Link
             href="/chat"
-            className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/25"
+            className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-sky-500 to-sky-600 text-white hover:from-sky-600 hover:to-sky-700 transition-all shadow-sm shadow-sky-200"
           >
-            Plan a Trip
+            Planifier un voyage
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden p-2 rounded-lg text-[#888888] hover:text-[#f5f5f5] hover:bg-[#111111] transition-colors"
+          className="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -90,7 +81,7 @@ export default function Navigation() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#222222] px-4 pb-4">
+        <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-4 pb-4">
           {NAV_LINKS.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
@@ -99,8 +90,8 @@ export default function Navigation() {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all",
                 pathname === href
-                  ? "bg-[#1a1a1a] text-[#f5f5f5]"
-                  : "text-[#888888] hover:text-[#f5f5f5]"
+                  ? "bg-sky-50 text-sky-600"
+                  : "text-slate-700 hover:text-sky-500"
               )}
             >
               <Icon className="w-4 h-4" />
@@ -110,9 +101,9 @@ export default function Navigation() {
           <Link
             href="/chat"
             onClick={() => setMobileOpen(false)}
-            className="mt-2 flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg text-sm font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white"
+            className="mt-2 flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg text-sm font-semibold bg-gradient-to-r from-sky-500 to-sky-600 text-white"
           >
-            Plan a Trip
+            Planifier un voyage
           </Link>
         </div>
       )}

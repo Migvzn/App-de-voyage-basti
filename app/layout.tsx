@@ -14,9 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ILUR AI Travel OS — Your AI Travel Agent & Concierge",
-  description: "Plan your perfect trip in seconds with ILUR, the AI-powered travel operating system. Personalized itineraries, best deals, and expert travel advice.",
-  keywords: "AI travel agent, trip planning, itinerary, travel concierge",
+  title: {
+    default: 'voyageo.ai — Votre agent de voyage IA',
+    template: '%s | voyageo.ai',
+  },
+  description: 'Planifiez votre voyage parfait en quelques secondes avec votre assistant IA personnel.',
+  keywords: 'agent de voyage IA, planification voyage, itinéraire, concierge voyage',
+  openGraph: {
+    title: 'voyageo.ai',
+    description: 'Planifiez votre voyage parfait en quelques secondes avec votre assistant IA personnel.',
+    siteName: 'voyageo.ai',
+  },
+  twitter: {
+    title: 'voyageo.ai',
+    description: 'Planifiez votre voyage parfait en quelques secondes avec votre assistant IA personnel.',
+  },
 };
 
 export default function RootLayout({
@@ -26,10 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-[#f5f5f5]">
+      <body className="min-h-full flex flex-col bg-white text-slate-900">
         <Navigation />
         <main className="flex-1">{children}</main>
       </body>
