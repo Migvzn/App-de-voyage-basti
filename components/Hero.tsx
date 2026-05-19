@@ -10,10 +10,10 @@ import { MOCK_DESTINATIONS } from "@/data/mock";
 const TRENDING = MOCK_DESTINATIONS.filter(d => d.trending).slice(0, 5);
 
 const PLACEHOLDER_QUERIES = [
-  "Plan a 7-day trip to Rome for 2 people on €2000 budget...",
-  "I want to visit Tokyo for 10 days in November, solo trip...",
-  "Budget honeymoon in Santorini, 5 nights, what's possible?",
-  "Best 2-week itinerary for Southeast Asia under $1500...",
+  "Planifie-moi un weekend romantique à Lisbonne...",
+  "Un road trip de 7 jours en Italie avec 1 200€...",
+  "Meilleurs endroits à voir à Tokyo en 5 jours...",
+  "Voyage en famille à Barcelone, 4 personnes, août...",
 ];
 
 export default function Hero() {
@@ -56,64 +56,64 @@ export default function Hero() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-sky-50 via-white to-blue-50">
       {/* Animated gradient background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute -bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/3 left-1/2 w-[400px] h-[400px] bg-violet-600/5 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-sky-200/30 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-200/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/3 left-1/2 w-[400px] h-[400px] bg-sky-100/30 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: "2s" }} />
       </div>
 
-      {/* Grid overlay */}
+      {/* Subtle grid overlay */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(14,165,233,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.5) 1px, transparent 1px)`,
           backgroundSize: "50px 50px",
         }}
       />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-16 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111111] border border-[#222222] text-sm text-[#888888] mb-8">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Powered by Claude AI — Your Personal Travel Agent</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-50 border border-sky-200 text-sm text-sky-600 mb-8 shadow-sm">
+          <Sparkles className="w-3.5 h-3.5 text-sky-500" />
+          <span>Propulsé par Claude AI — Votre agent de voyage personnel</span>
         </div>
 
         {/* Main headline */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#f5f5f5] mb-6 leading-[1.1]">
-          Your AI Travel
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+          Votre agent de voyage
           <br />
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 bg-clip-text text-transparent">
-            Agent & Concierge
+          <span className="bg-gradient-to-r from-sky-500 via-sky-400 to-blue-500 bg-clip-text text-transparent">
+            intelligent & personnel
           </span>
         </h1>
 
-        <p className="text-xl text-[#888888] mb-12 max-w-2xl mx-auto leading-relaxed">
-          Plan your perfect trip in seconds. ILUR crafts personalized itineraries,
-          finds the best deals, and thinks like a seasoned traveler who has been everywhere.
+        <p className="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Planifiez votre voyage parfait en quelques secondes. voyageo.ai conçoit des itinéraires
+          personnalisés, trouve les meilleures offres et pense comme un voyageur expert.
         </p>
 
         {/* Search box */}
         <form onSubmit={handleSubmit} className="relative max-w-3xl mx-auto mb-8">
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl opacity-20 group-focus-within:opacity-60 transition-opacity duration-300 blur-sm" />
-            <div className="relative flex items-center bg-[#111111] border border-[#222222] rounded-xl overflow-hidden group-focus-within:border-indigo-500/50 transition-colors">
-              <div className="pl-5 pr-3 text-[#555555]">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-sky-400 to-blue-500 rounded-2xl opacity-20 group-focus-within:opacity-50 transition-opacity duration-300 blur-sm" />
+            <div className="relative flex items-center bg-white border border-slate-200 rounded-xl overflow-hidden group-focus-within:border-sky-400 transition-colors shadow-sm">
+              <div className="pl-5 pr-3 text-slate-400">
                 <MapPin className="w-5 h-5" />
               </div>
               <input
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                placeholder={displayedPlaceholder || "Where do you want to go?"}
-                className="flex-1 bg-transparent px-2 py-5 text-[#f5f5f5] placeholder:text-[#555555] text-base focus:outline-none"
+                placeholder={displayedPlaceholder || "Où voulez-vous aller ?"}
+                className="flex-1 bg-transparent px-2 py-5 text-slate-900 placeholder:text-slate-400 text-base focus:outline-none"
               />
               <button
                 type="submit"
-                className="m-2 flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity text-sm whitespace-nowrap"
+                className="m-2 flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-semibold rounded-lg transition-all text-sm whitespace-nowrap shadow-sm shadow-sky-200"
               >
-                Plan Trip
+                Planifier
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -122,12 +122,12 @@ export default function Hero() {
 
         {/* Quick suggestions */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-16">
-          <span className="text-xs text-[#555555]">Try:</span>
-          {["Rome 7 days", "Tokyo solo trip", "Bali budget", "Paris honeymoon"].map(s => (
+          <span className="text-xs text-slate-400">Essayez :</span>
+          {["Rome 7 jours", "Tokyo solo", "Bali budget", "Paris lune de miel"].map(s => (
             <button
               key={s}
               onClick={() => setQuery(s)}
-              className="px-3 py-1.5 rounded-full bg-[#111111] border border-[#222222] text-xs text-[#888888] hover:text-[#f5f5f5] hover:border-[#333333] transition-all"
+              className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs text-slate-600 hover:text-sky-600 hover:border-sky-300 transition-all shadow-sm"
             >
               {s}
             </button>
@@ -137,22 +137,22 @@ export default function Hero() {
         {/* Trending destinations */}
         <div className="mt-4">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <TrendingUp className="w-4 h-4 text-indigo-400" />
-            <span className="text-sm font-medium text-[#888888]">Trending destinations</span>
+            <TrendingUp className="w-4 h-4 text-sky-500" />
+            <span className="text-sm font-medium text-slate-600">Destinations tendance</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {TRENDING.map(dest => (
               <Link
                 key={dest.id}
-                href={`/chat?q=Plan a trip to ${dest.name}`}
-                className="group flex items-center gap-3 px-4 py-3 bg-[#111111] border border-[#222222] rounded-xl hover:border-indigo-500/30 hover:bg-[#131320] transition-all duration-200"
+                href={`/chat?q=Planifie un voyage à ${dest.name}`}
+                className="group flex items-center gap-3 px-4 py-3 bg-white border border-slate-200 rounded-xl hover:border-sky-300 hover:shadow-md transition-all duration-200"
               >
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-600/20 flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-100 to-blue-50 flex items-center justify-center text-sm">
                   {dest.name.slice(0, 1)}
                 </div>
                 <div className="text-left">
-                  <div className="text-sm font-medium text-[#f5f5f5] group-hover:text-indigo-400 transition-colors">{dest.name}</div>
-                  <div className="text-xs text-[#555555]">{dest.country}</div>
+                  <div className="text-sm font-medium text-slate-900 group-hover:text-sky-600 transition-colors">{dest.name}</div>
+                  <div className="text-xs text-slate-400">{dest.country}</div>
                 </div>
               </Link>
             ))}
@@ -161,17 +161,17 @@ export default function Hero() {
       </div>
 
       {/* Stats bar */}
-      <div className="relative z-10 w-full border-t border-[#111111] bg-[#0a0a0a]/80 backdrop-blur-sm">
+      <div className="relative z-10 w-full border-t border-slate-200 bg-white/80 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[
-            { value: "50K+", label: "Trips Planned" },
+            { value: "50 000+", label: "Voyages planifiés" },
             { value: "120+", label: "Destinations" },
-            { value: "4.9★", label: "Avg Rating" },
-            { value: "2 min", label: "Avg Plan Time" },
+            { value: "4,9★", label: "Note moyenne" },
+            { value: "2 min", label: "Temps moyen" },
           ].map(stat => (
             <div key={stat.label} className="text-center">
-              <div className="text-2xl font-bold text-[#f5f5f5]">{stat.value}</div>
-              <div className="text-sm text-[#555555]">{stat.label}</div>
+              <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
+              <div className="text-sm text-slate-500">{stat.label}</div>
             </div>
           ))}
         </div>

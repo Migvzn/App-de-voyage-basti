@@ -1,13 +1,13 @@
 const AFFILIATE_CONFIGS = {
-  booking: { baseUrl: "https://www.booking.com", affiliateId: "ilur_booking_001", commission: "4%" },
-  airbnb: { baseUrl: "https://www.airbnb.com", affiliateId: "ilur_airbnb_001", commission: "3%" },
-  skyscanner: { baseUrl: "https://www.skyscanner.com", affiliateId: "ilur_sky_001", commission: "1%" },
-  getyourguide: { baseUrl: "https://www.getyourguide.com", affiliateId: "ilur_gyg_001", commission: "8%" },
-  viator: { baseUrl: "https://www.viator.com", affiliateId: "ilur_viator_001", commission: "8%" },
-  expedia: { baseUrl: "https://www.expedia.com", affiliateId: "ilur_exp_001", commission: "3%" },
-  trainline: { baseUrl: "https://www.thetrainline.com", affiliateId: "ilur_train_001", commission: "2%" },
-  sixt: { baseUrl: "https://www.sixt.com", affiliateId: "ilur_sixt_001", commission: "5%" },
-  omio: { baseUrl: "https://www.omio.com", affiliateId: "ilur_omio_001", commission: "2%" },
+  booking: { baseUrl: "https://www.booking.com", affiliateId: "voyageo_booking_001", commission: "4%" },
+  airbnb: { baseUrl: "https://www.airbnb.com", affiliateId: "voyageo_airbnb_001", commission: "3%" },
+  skyscanner: { baseUrl: "https://www.skyscanner.com", affiliateId: "voyageo_sky_001", commission: "1%" },
+  getyourguide: { baseUrl: "https://www.getyourguide.com", affiliateId: "voyageo_gyg_001", commission: "8%" },
+  viator: { baseUrl: "https://www.viator.com", affiliateId: "voyageo_viator_001", commission: "8%" },
+  expedia: { baseUrl: "https://www.expedia.com", affiliateId: "voyageo_exp_001", commission: "3%" },
+  trainline: { baseUrl: "https://www.thetrainline.com", affiliateId: "voyageo_train_001", commission: "2%" },
+  sixt: { baseUrl: "https://www.sixt.com", affiliateId: "voyageo_sixt_001", commission: "5%" },
+  omio: { baseUrl: "https://www.omio.com", affiliateId: "voyageo_omio_001", commission: "2%" },
 };
 
 export type AffiliatePartner = keyof typeof AFFILIATE_CONFIGS;

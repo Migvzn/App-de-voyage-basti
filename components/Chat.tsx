@@ -41,12 +41,12 @@ function MessageBubble({ message }: { message: UIMessage }) {
       <div className={cn(
         "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-1",
         role === "assistant"
-          ? "bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/20"
-          : "bg-[#1a1a1a] border border-[#333333]"
+          ? "bg-gradient-to-br from-sky-500 to-sky-600 shadow-lg shadow-sky-200"
+          : "bg-slate-100 border border-slate-200"
       )}>
         {role === "assistant"
           ? <Sparkles className="w-4 h-4 text-white" />
-          : <User className="w-4 h-4 text-[#888888]" />}
+          : <User className="w-4 h-4 text-slate-500" />}
       </div>
 
       <div className={cn("flex-1 max-w-[85%]", role === "user" && "flex flex-col items-end")}>
@@ -55,8 +55,8 @@ function MessageBubble({ message }: { message: UIMessage }) {
           <div className={cn(
             "rounded-2xl px-4 py-3 text-sm leading-relaxed",
             role === "assistant"
-              ? "bg-[#111111] border border-[#222222] text-[#f5f5f5] rounded-tl-sm"
-              : "bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-tr-sm"
+              ? "bg-white border border-slate-200 text-slate-800 rounded-tl-sm shadow-sm"
+              : "bg-sky-500 text-white rounded-tr-sm"
           )}>
             {displayContent.split("\n").map((line, i) => {
               if (line.startsWith("## ")) {
@@ -94,23 +94,25 @@ function MessageBubble({ message }: { message: UIMessage }) {
 function TypingIndicator() {
   return (
     <div className="flex gap-3 mb-6">
-      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center shadow-lg shadow-sky-200">
         <Sparkles className="w-4 h-4 text-white" />
       </div>
-      <div className="bg-[#111111] border border-[#222222] rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
-        <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-        <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-        <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+      <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1 shadow-sm">
+        <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+        <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+        <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
       </div>
     </div>
   );
 }
 
 const SUGGESTED_PROMPTS = [
-  "Plan a 7-day trip to Rome for 2 people on €2,500 budget",
-  "Best 10-day itinerary for Japan in autumn, solo traveler",
-  "Budget honeymoon in Santorini for €3,000",
-  "Weekend in Paris from London — what's the best plan?",
+  "Planifie-moi un weekend romantique à Lisbonne 🇵🇹",
+  "Un road trip de 7 jours en Italie avec 1 200€",
+  "Inspire-moi pour des vacances à 1 500€ en juillet",
+  "Meilleurs endroits à voir à Tokyo en 5 jours",
+  "Voyage en famille à Barcelone, 4 personnes, août",
+  "Escapade de 3 jours à Amsterdam : culture et gastronomie",
 ];
 
 export default function Chat() {
@@ -120,9 +122,13 @@ export default function Chat() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [hasStarted, setHasStarted] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat" }),
+    onError: () => {
+      setApiError("⚠️ Impossible de contacter l'IA. Vérifiez que votre clé API Anthropic est configurée dans .env.local");
+    },
   });
 
   const isLoading = status === "streaming" || status === "submitted";
@@ -143,6 +149,7 @@ export default function Chat() {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
     setHasStarted(true);
+    setApiError(null);
     sendMessage({ text: inputValue });
     setInputValue("");
   };
@@ -155,49 +162,56 @@ export default function Chat() {
   const visibleMessages = messages.filter(m => m.role === "user" || m.role === "assistant");
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#0a0a0a]">
+    <div className="flex flex-col h-[calc(100vh-4rem)] bg-slate-50">
       {/* Header */}
-      <div className="border-b border-[#111111] px-4 sm:px-6 py-4 flex items-center justify-between bg-[#0a0a0a]">
+      <div className="border-b border-slate-200 px-4 sm:px-6 py-4 flex items-center justify-between bg-white shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center shadow-lg shadow-sky-200">
             <Bot className="w-5 h-5 text-white" />
           </div>
           <div>
-            <div className="font-semibold text-[#f5f5f5]">ILUR AI Travel Agent</div>
-            <div className="text-xs text-[#555555] flex items-center gap-1">
+            <div className="font-semibold text-slate-900">voyageo.ai — Agent de voyage</div>
+            <div className="text-xs text-slate-400 flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block" />
-              Online — Ready to plan your trip
+              En ligne — Prêt à planifier votre voyage
             </div>
           </div>
         </div>
         {messages.length > 0 && (
           <button
             onClick={() => window.location.reload()}
-            className="p-2 rounded-lg text-[#555555] hover:text-[#888888] hover:bg-[#111111] transition-colors"
-            title="New conversation"
+            className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            title="Nouvelle conversation"
           >
             <RefreshCw className="w-4 h-4" />
           </button>
         )}
       </div>
 
+      {/* Error banner */}
+      {apiError && (
+        <div className="px-4 sm:px-6 py-3 bg-red-50 border-b border-red-200 text-sm text-red-600">
+          {apiError}
+        </div>
+      )}
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
         {visibleMessages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 rounded-2xl flex items-center justify-center mb-6">
-              <Sparkles className="w-8 h-8 text-indigo-400" />
+            <div className="w-16 h-16 bg-gradient-to-br from-sky-100 to-blue-50 border border-sky-200 rounded-2xl flex items-center justify-center mb-6">
+              <Sparkles className="w-8 h-8 text-sky-500" />
             </div>
-            <h2 className="text-2xl font-bold text-[#f5f5f5] mb-2">Where to next?</h2>
-            <p className="text-[#555555] text-sm max-w-md mb-8">
-              Tell me your dream destination, budget, and travel style — I&apos;ll craft the perfect itinerary for you.
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Où voulez-vous aller ?</h2>
+            <p className="text-slate-500 text-sm max-w-md mb-8">
+              Décrivez votre destination de rêve, votre budget et votre style de voyage — je créerai l&apos;itinéraire parfait pour vous.
             </p>
-            <div className="grid sm:grid-cols-2 gap-2 w-full max-w-xl">
+            <div className="grid sm:grid-cols-2 gap-2 w-full max-w-2xl">
               {SUGGESTED_PROMPTS.map(prompt => (
                 <button
                   key={prompt}
                   onClick={() => sendSuggestion(prompt)}
-                  className="text-left px-4 py-3 bg-[#111111] border border-[#222222] rounded-xl text-sm text-[#888888] hover:text-[#f5f5f5] hover:border-indigo-500/30 hover:bg-[#131320] transition-all"
+                  className="text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-600 hover:text-sky-600 hover:border-sky-300 hover:shadow-sm transition-all"
                 >
                   {prompt}
                 </button>
@@ -216,28 +230,28 @@ export default function Chat() {
       </div>
 
       {/* Input */}
-      <div className="border-t border-[#111111] px-4 sm:px-6 py-4 bg-[#0a0a0a]">
+      <div className="border-t border-slate-200 px-4 sm:px-6 py-4 bg-white">
         <form onSubmit={handleSubmit} className="flex gap-3 items-end">
           <div className="flex-1 relative">
             <input
               ref={inputRef}
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
-              placeholder="Ask me anything about travel..."
+              placeholder="Posez-moi toutes vos questions sur votre voyage..."
               disabled={isLoading}
-              className="w-full bg-[#111111] border border-[#222222] rounded-xl px-4 py-3 text-sm text-[#f5f5f5] placeholder:text-[#444444] focus:outline-none focus:border-indigo-500/50 transition-colors disabled:opacity-50"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-sky-400 transition-colors disabled:opacity-50"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading || !inputValue.trim()}
-            className="w-11 h-11 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white hover:opacity-90 transition-opacity disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20 shrink-0"
+            className="w-11 h-11 bg-gradient-to-r from-sky-500 to-sky-600 rounded-xl flex items-center justify-center text-white hover:from-sky-600 hover:to-sky-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm shadow-sky-200 shrink-0"
           >
             {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           </button>
         </form>
-        <p className="text-xs text-[#333333] text-center mt-2">
-          ILUR can make mistakes. Verify booking prices before purchasing.
+        <p className="text-xs text-slate-400 text-center mt-2">
+          voyageo.ai peut faire des erreurs. Vérifiez les prix avant de réserver.
         </p>
       </div>
     </div>
